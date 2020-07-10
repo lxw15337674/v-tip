@@ -1,6 +1,7 @@
 # v-tip
 消息提示
-
+## todo
+[vue-directive-tooltip](https://github.com/hekigan/vue-directive-tooltip)
 ## 特性
 
 - 支持 dark/light 主题
@@ -23,3 +24,4 @@
 ```
     <div v-tip="'test'">test</div>
 ```
+
