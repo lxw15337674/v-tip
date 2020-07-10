@@ -1,0 +1,52 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tip[data-v-5c4f8f12] {
+  box-sizing: border-box;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 999;
+  border-radius: 4px;
+  padding: 7px 10px;
+  font-size: 12px;
+  line-height: 1.2;
+  min-width: 10px;
+  word-wrap: break-word;
+}
+.dark[data-v-5c4f8f12] {
+  background: #303133;
+  color: #fff;
+}
+.light[data-v-5c4f8f12] {
+  color: #303133;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #d9d9d9;
+}
+.v-tip-fade-enter-active[data-v-5c4f8f12],
+.v-tip-fade-leave-active[data-v-5c4f8f12] {
+  transition: opacity 0.3s;
+}
+.v-tip-fade-enter[data-v-5c4f8f12],
+.v-tip-fade-leave-to[data-v-5c4f8f12] {
+  opacity: 0;
+}
