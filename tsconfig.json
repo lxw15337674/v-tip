@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "allowUnreachableCode": true, // 不报告执行不到的代码错误。
+    "allowUnusedLabels": true, // 不报告未使用的标签错误
+    "alwaysStrict": false, // 以严格模式解析并为每个源文件生成 "use strict"语句
+    "experimentalDecorators": true, // 启用实验性的ES装饰器
+    "module": "ES2015", // 指定生成哪个模块系统代码
+    "noImplicitAny": false, // 是否默认禁用 any
+    "removeComments": true, // 是否移除注释
+    "target": "es5",
+    "declaration": true,
+    "declarationDir": "types",
+    "strict": false,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "noEmit": false,
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": ["dom", "es5", "es6", "es7", "es2015.promise"],
+    "pretty": true
+  },
+  "exclude": ["node_modules"]
+}

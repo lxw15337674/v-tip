@@ -43,7 +43,8 @@ export default {
       default: 10,
       type: Number,
     },
-    position: {
+
+    positions: {
       type: String,
       default: 'cursor',
       validator: function (value) {

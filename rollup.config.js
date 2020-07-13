@@ -26,7 +26,9 @@ export default {
         { find: '@', replacement: __dirname + '/src/' }
       ]
     }),
-    typescript(),
+    typescript({
+      tsconfig: 'tsconfig.json',
+    }),
     postcss({ extract: true }),
     vue({ css: false }),
     replace({
