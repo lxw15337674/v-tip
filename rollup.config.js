@@ -34,7 +34,7 @@ export default {
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    resolve({ extensions: ['.js', '.vue'], browser: true, preferBuiltins: true }),
+    resolve({ extensions: ['.js', '.vue','.tsnp'], browser: true, preferBuiltins: true }),
     commonjs(),
     esbuild({
       minify: production,

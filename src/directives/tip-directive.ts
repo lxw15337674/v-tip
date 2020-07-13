@@ -1,14 +1,14 @@
 import Vue from 'vue';
+// @ts-ignore
 import tipComponent from '@/components/tip.vue';
-import { textSpanIsEmpty } from 'typescript';
 interface Position {
   left: Number;
   top: Number;
 }
 type Theme = 'dark' | 'light';
-type Positions = 'right' | 'left' | 'right' | 'top' | 'auto' | 'cursor';
+type Positions = 'left' | 'right' | 'top' | 'auto' | 'cursor';
 type Triggers = 'click' | 'hover';
-interface Tip {
+interface TipInterface {
   theme?: Theme;
   positions?: Positions;
   offset?: Number;
@@ -25,22 +25,23 @@ interface options {
   offset: number;
   trigger: Triggers;
 }
-export class tip {
+export default class Tip {
   private visible = false;
   private delay = 5;
   private triggers: Triggers = 'hover';
   private positions: Positions = 'cursor';
-  private tip: Tip;
+  private tip: TipInterface;
   private offset: number = 5;
   private timer;
   private el: Node;
   static theme: Theme;
-  constructor(options: options) {
+  constructor(el:Node,options: options) {
     if (Vue.prototype.$tip) {
       this.tip = Vue.prototype.$tip;
     } else {
       const tipConstruct = Vue.extend(tipComponent);
       //   this.tip = new tipConstruct({ propsData: arguments }).$mount();
+      // @ts-ignore
       this.tip = new tipConstruct().$mount();
       document.body.appendChild(this.tip.$el);
     }
@@ -74,11 +75,12 @@ export class tip {
     }
   }
   private tooltipShow(value) {
-    function debounce(func, wait = this.delay) {
+    let that = this
+    function debounce(func, wait = that.delay) {
       return function (...args) {
-        if (!this.tip.visible) {
-          clearTimeout(this.timer);
-          this.timer = setTimeout(() => {
+        if (!that.tip.visible) {
+          clearTimeout(that.timer);
+          that.timer = setTimeout(() => {
             func(...args);
           }, wait);
         }

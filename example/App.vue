@@ -11,6 +11,7 @@
     >
       test1
     </button>
+    <div v-tip="'test'">11</div>
     <div ref="ref">ref123123</div>
   </div>
 </template>

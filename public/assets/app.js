@@ -7603,6 +7603,16 @@
         [_vm._v("\n    test1\n  ")]
       ),
       _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            { name: "tip", rawName: "v-tip", value: "test", expression: "'test'" }
+          ]
+        },
+        [_vm._v("11")]
+      ),
+      _vm._v(" "),
       _c("div", { ref: "ref" }, [_vm._v("ref123123")])
     ])
   };
@@ -7667,7 +7677,7 @@
         default: 10,
         type: Number
       },
-      position: {
+      positions: {
         type: String,
         default: "cursor",
         validator: function(value) {
@@ -7724,7 +7734,7 @@
     /* style */
     const __vue_inject_styles__$1 = undefined;
     /* scoped */
-    const __vue_scope_id__$1 = "data-v-11cbfdf5";
+    const __vue_scope_id__$1 = "data-v-223d5d21";
     /* module identifier */
     const __vue_module_identifier__$1 = undefined;
     /* functional template */
@@ -7750,73 +7760,111 @@
       undefined
     );
 
-  var __assign = Object.assign;
-  let timer, isFocus = false;
-  function tooltipShow(value, theme) {
-    let props = {content: value, theme};
-    if (!Vue.prototype.$tip) {
-      let Tip = tip2(__assign({}, props));
-      document.body.appendChild(Tip.$el);
-      Vue.prototype.$tip = Tip;
+  var Tip = function() {
+    function Tip2(el, options) {
+      this.visible = false;
+      this.delay = 5;
+      this.triggers = "hover";
+      this.positions = "cursor";
+      this.offset = 5;
+      if (Vue.prototype.$tip) {
+        this.tip = Vue.prototype.$tip;
+      } else {
+        var tipConstruct = Vue.extend(__vue_component__$1);
+        this.tip = new tipConstruct().$mount();
+        document.body.appendChild(this.tip.$el);
+      }
+      this.bindEvent();
     }
-    function debounce(func, wait = 500) {
-      return function(...args) {
-        if (!isFocus) {
-          clearTimeout(timer);
-          timer = setTimeout(() => {
-            func(...args);
-            isFocus = true;
-          }, wait);
+    Tip2.defaults = function(theme) {
+      this.theme = theme;
+    };
+    Tip2.prototype.bindEvent = function() {
+      if (this.triggers === "hover") {
+        this.bindHoverEvent();
+      }
+      if (this.triggers === "click") {
+        this.bindClickEvent();
+      }
+    };
+    Tip2.prototype.destory = function() {
+      if (this.triggers === "hover") {
+        this.unbindHoverEvent();
+      }
+      if (this.triggers === "click") {
+        this.unbindClickEvent();
+      }
+    };
+    Tip2.prototype.tooltipShow = function(value) {
+      var _this = this;
+      var that = this;
+      function debounce(func, wait) {
+        if (wait === void 0) {
+          wait = that.delay;
         }
-      };
-    }
-    return debounce((event) => {
-      let Tip = Vue.prototype.$tip;
-      Tip.content = value;
-      Tip.visible = true;
-      Tip.position = {
-        left: event.pageX,
-        top: event.pageY
-      };
-    });
-  }
-  function tip2(options = {}) {
-    const tipConstruct = Vue.extend(__vue_component__$1);
-    let tip3;
-    if (!tip3) {
-      tip3 = new tipConstruct({propsData: options}).$mount();
-    }
-    return tip3;
-  }
-  function tooltipHidden() {
-    Vue.prototype.$tip.visible = false;
-    isFocus = false;
-    clearTimeout(timer);
-  }
-  function bindEvent(el, {value, modifiers}, theme) {
-    el.addEventListener("mousemove", tooltipShow(value, theme));
-    el.addEventListener("mouseleave", tooltipHidden);
-  }
-  function unbindEvent(el) {
-    document.removeEventListener("mousemove", tooltipShow);
-    document.removeEventListener("mouseleave", tooltipHidden);
-  }
+        return function() {
+          var args = [];
+          for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+          }
+          if (!that.tip.visible) {
+            clearTimeout(that.timer);
+            that.timer = setTimeout(function() {
+              func.apply(void 0, args);
+            }, wait);
+          }
+        };
+      }
+      return debounce(function(event) {
+        _this.tip.content = value;
+        _this.tip.visible = false;
+        _this.tip.position = {
+          left: event.pageX,
+          top: event.pageY
+        };
+      });
+    };
+    Tip2.prototype.tooltipHidden = function() {
+      this.tip.visible = false;
+      clearTimeout(this.timer);
+    };
+    Tip2.prototype.bindHoverEvent = function() {
+      this.el.addEventListener("mousemove", this.tooltipShow);
+      this.el.addEventListener("mouseleave", this.tooltipHidden);
+    };
+    Tip2.prototype.unbindHoverEvent = function() {
+      this.el.removeEventListener("mousemove", this.tooltipShow);
+      this.el.removeEventListener("mouseleave", this.tooltipHidden);
+    };
+    Tip2.prototype.bindClickEvent = function() {
+    };
+    Tip2.prototype.unbindClickEvent = function() {
+    };
+    return Tip2;
+  }();
 
-  function buildDirective(theme) {
+  function buildDirective() {
     return {
-      bind(el, binding, vnode, oldVnode) {
-        bindEvent(el, binding, theme);
+      bind: function(el, binding, vnode, oldVnode) {
+        debugger;
+        el.tip = new Tip(el, binding);
       },
-      unbind: unbindEvent
+      inserted: function(el, binding, vnode, oldVnode) {
+      },
+      unbind: function(el, binding, vnode, oldVnode) {
+        el.tip.desotry();
+      }
     };
   }
-  const tip = {
-    install(Vue, options = {}) {
-      const name = options.directiveName || "tip";
-      const theme = options.theme || "dark";
-      Vue.directive(name, buildDirective(theme));
-    },
-    directive: buildDirective()
+  var tip = {
+    install: function(Vue, options) {
+      if (options === void 0) {
+        options = {};
+      }
+      var name = options.directiveName || "tip";
+      Tip.defaults(options.theme || "dark");
+      Vue.directive(name, buildDirective());
+    }
   };
 
   Vue.config.productionTip = false;
