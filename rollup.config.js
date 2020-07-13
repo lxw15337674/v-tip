@@ -7,6 +7,7 @@ import vue from 'rollup-plugin-vue';
 import esbuild from 'rollup-plugin-esbuild';
 import serve from 'rollup-plugin-serve';
 import livereload from 'rollup-plugin-livereload';
+import typescript from 'rollup-plugin-typescript2';
 
 const production = !process.env.ROLLUP_WATCH;
 const port = 8080;
@@ -25,6 +26,7 @@ export default {
         { find: '@', replacement: __dirname + '/src/' }
       ]
     }),
+    typescript(),
     postcss({ extract: true }),
     vue({ css: false }),
     replace({

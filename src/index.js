@@ -1,9 +1,9 @@
-import { bindEvent, unbindEvent } from './directives/tip'
+import { bindEvent, unbindEvent } from './directives/tip-directive.js'
 
 
 function buildDirective(theme) {
     return {
-        inserted(el, binding, vnode, oldVnode) {
+        bind(el, binding, vnode, oldVnode) {
             bindEvent(el, binding, theme)
         },
         unbind: unbindEvent

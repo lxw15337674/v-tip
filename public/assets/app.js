@@ -7588,13 +7588,19 @@
             {
               name: "tip",
               rawName: "v-tip.left.click.focus",
-              value: { content: "test", delay: 500, offset: 40 },
-              expression: "{ content: 'test', delay: 500, offset: 40 }",
+              value: {
+                content: "test",
+                delay: 500,
+                offset: 40,
+                triggers: "hover"
+              },
+              expression:
+                "{\n      content: 'test',\n      delay: 500,\n      offset: 40,\n      triggers: 'hover',\n    }",
               modifiers: { left: true, click: true, focus: true }
             }
           ]
         },
-        [_vm._v("\n    test\n  ")]
+        [_vm._v("\n    test1\n  ")]
       ),
       _vm._v(" "),
       _c("div", { ref: "ref" }, [_vm._v("ref123123")])
@@ -7638,8 +7644,8 @@
     },
     computed: {
       tipStyle() {
-        let x = this.position.left + 10;
-        let y = this.position.top + 15;
+        let x = this.position.left + this.offset;
+        let y = this.position.top + this.offset;
         return {transform: `translate3d(${x}px, ${y}px, 0px)`};
       }
     },
@@ -7656,6 +7662,17 @@
       },
       content: {
         default: ""
+      },
+      offset: {
+        default: 10,
+        type: Number
+      },
+      position: {
+        type: String,
+        default: "cursor",
+        validator: function(value) {
+          return ["right", "left", "right", "top", "auto", "curosr"].indexOf(value) !== -1;
+        }
       },
       visible: {
         type: Boolean,
@@ -7707,7 +7724,7 @@
     /* style */
     const __vue_inject_styles__$1 = undefined;
     /* scoped */
-    const __vue_scope_id__$1 = "data-v-5c4f8f12";
+    const __vue_scope_id__$1 = "data-v-11cbfdf5";
     /* module identifier */
     const __vue_module_identifier__$1 = undefined;
     /* functional template */
@@ -7787,13 +7804,13 @@
 
   function buildDirective(theme) {
     return {
-      inserted(el, binding, vnode, oldVnode) {
+      bind(el, binding, vnode, oldVnode) {
         bindEvent(el, binding, theme);
       },
       unbind: unbindEvent
     };
   }
-  const tip2$1 = {
+  const tip = {
     install(Vue, options = {}) {
       const name = options.directiveName || "tip";
       const theme = options.theme || "dark";
@@ -7803,7 +7820,7 @@
   };
 
   Vue.config.productionTip = false;
-  Vue.use(tip2$1);
+  Vue.use(tip);
   new Vue({
     render: (h) => h(__vue_component__)
   }).$mount("#app");

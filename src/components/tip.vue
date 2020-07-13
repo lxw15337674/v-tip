@@ -19,8 +19,8 @@ export default {
   mounted() {},
   computed: {
     tipStyle() {
-      let x = this.position.left + 10;
-      let y = this.position.top + 15;
+      let x = this.position.left + this.offset;
+      let y = this.position.top + this.offset;
       return { transform: `translate3d(${x}px, ${y}px, 0px)` };
     },
   },
@@ -38,6 +38,20 @@ export default {
     },
     content: {
       default: '',
+    },
+    offset: {
+      default: 10,
+      type: Number,
+    },
+    position: {
+      type: String,
+      default: 'cursor',
+      validator: function (value) {
+        return (
+          ['right', 'left', 'right', 'top', 'auto', 'curosr'].indexOf(value) !==
+          -1
+        );
+      },
     },
     visible: {
       type: Boolean,

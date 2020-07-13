@@ -2,9 +2,14 @@
   <div class="app">
     <!-- <div v-tip="">test</div> -->
     <button
-      v-tip.left.click.focus="{ content: 'test', delay: 500, offset: 40 }"
+      v-tip.left.click.focus="{
+        content: 'test',
+        delay: 500,
+        offset: 40,
+        triggers: 'hover',
+      }"
     >
-      test
+      test1
     </button>
     <div ref="ref">ref123123</div>
   </div>
