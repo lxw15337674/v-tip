@@ -27,11 +27,10 @@ export default {
   data() {
     return {};
   },
-
   props: {
     theme: {
       type: String,
-      default: 'light',
+      default: 'dark',
       validator: function (value) {
         return ['dark', 'light'].indexOf(value) !== -1;
       },
