@@ -8,12 +8,14 @@
       class="button"
       @click="click('test1')"
       v-if="show"
-      v-for="item in 10"
+      v-for="item in 1000"
       v-tip="{
         content: content,
-        delay: 500,
+        delay: 1000,
+        theme: 'dark',
         positions: 'top',
-        triggers: 'hover',
+        triggers: 'click',
+        class: 'tooltip-custom tip',
       }"
     >
       test1
@@ -24,8 +26,8 @@
       v-tip="{
         content: content,
         delay: 500,
-        positions: 'top',
-        triggers: 'hover',
+        positions: 'left',
+        triggers: 'click',
       }"
     >
       test2
@@ -41,8 +43,23 @@
     >
       test
     </button>
+    <button
+      class="button"
+      v-tip="{
+        ref:'tooltipRef',
+        delay: 500,
+        positions: 'cursor',
+        triggers: 'click',
+      }"
+    >
+      ref
+    </button>
+    <button class="button" v-tip="content">
+      test
+    </button>
+
     <!--    <div v-tip="{ content: '11' }">11</div>-->
-    <!--      <div ref="ref">ref123123</div>-->
+    <div ref="tooltipRef">ref123123</div>
   </div>
 </template>
 
@@ -58,6 +75,7 @@ export default {
   },
   methods: {
     click(content) {
+      debugger
       this.content = content;
     },
     toggle() {

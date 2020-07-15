@@ -1,6 +1,7 @@
+declare type Theme = 'dark' | 'light';
 interface Options {
     directiveName?: string;
-    theme?: string;
+    theme?: Theme;
 }
 declare const tip: {
     install(Vue: any, options?: Options): void;

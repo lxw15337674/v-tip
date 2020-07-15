@@ -4,7 +4,7 @@
     <div
       ref="tip"
       id="_tip"
-      class="tip"
+      class="v-tip"
       :class="tipClass"
       :style="tipStyle"
       v-show="visible"
@@ -15,8 +15,6 @@
 </template>
 
 <script>
-import tool from '../utils';
-
 export default {
   name: 'tip',
   computed: {
@@ -29,6 +27,9 @@ export default {
       let classList = [this.theme];
       if (['right', 'left', 'top', 'bottom'].indexOf(this.positions) !== -1) {
         classList.push(`${this.positions}-tip`);
+      }
+      if (this.class) {
+        classList.push(this.class.split(' '));
       }
       return classList;
     },
@@ -45,6 +46,13 @@ export default {
   props: {
     el: {
       require: true,
+    },
+
+    ref: {
+      type: Object,
+    },
+    class: {
+      type: String,
     },
     theme: {
       type: String,
@@ -72,35 +80,69 @@ export default {
     },
     positions: {
       type: String,
-      default: 'cursor',
+      default: 'bottom',
       validator: function (value) {
-        return ['right', 'left', 'top', 'auto', 'cursor'].indexOf(value) !== -1;
+        return (
+          ['right', 'left', 'top', 'bottom', 'cursor'].indexOf(value) !== -1
+        );
       },
     },
   },
-  mounted() {
-    this.bindEvent();
+  watch: {
+    ref:{
+      immediate:true,
+      handler(newValue){
+        console.log(newValue)
+        if(newValue){
+          debugger
+        }
+      }
+    },
+    triggers: {
+      immediate: true,
+      handler(newValue, oldValue) {
+        this.unBindEvent(oldValue);
+        this.bindEvent();
+      },
+    },
+    visible: {
+      handler() {
+        if (this.visible) {
+          window.addEventListener('resize', this.handleResize);
+        } else {
+          window.removeEventListener('resize', this.handleResize);
+        }
+      },
+    },
   },
   destroyed() {
-    this.unBindEvent();
+    window.removeEventListener('resize', this.handleResize);
   },
   methods: {
     bindEvent() {
       if (this.triggers === 'hover') {
-        this.el.addEventListener('mouseenter', this.handlerHover());
+        this.el.addEventListener('mouseenter', this.handlerHover);
         this.el.addEventListener('mouseleave', this.tooltipHidden);
       }
       if (this.triggers === 'click') {
         this.el.addEventListener('click', this.tooltipToggle);
       }
     },
-    unBindEvent() {
-      if (this.triggers === 'hover') {
-        this.el.removeEventListener('mouseenter', this.handlerHover());
+    unBindEvent(triggers) {
+      if (triggers || this.triggers === 'hover') {
+        this.el.removeEventListener('mouseenter', this.handlerHover);
         this.el.removeEventListener('mouseleave', this.tooltipHidden);
       }
-      if (this.triggers === 'click') {
+      if (triggers || this.triggers === 'click') {
         this.el.removeEventListener('click', this.tooltipToggle);
+      }
+    },
+    handleResize(event) {
+      if (this.visible) {
+        if (this.positions === 'cursor') {
+          this.visible = false;
+        }
+        this.setPosition(event);
       }
     },
     tooltipToggle(event) {
@@ -148,45 +190,50 @@ export default {
           };
       }
     },
-    handlerHover() {
-      let that = this;
-      return tool.debounce((event) => {
-        that.visible = true;
-        that.$nextTick().then(() => this.setPosition(event));
-      }, that.delay);
+    handlerHover(event) {
+      if (this.visible) return;
+      clearTimeout(this._scheduleTimer);
+      this._scheduleTimer = window.setTimeout(() => {
+        this.visible = true;
+        this.$nextTick().then(() => this.setPosition(event));
+      }, this.delay);
     },
     tooltipHidden() {
       this.visible = false;
+      clearTimeout(this._scheduleTimer);
     },
   },
 };
 </script>
 
 <style scoped>
-.tip {
+.v-tip {
   will-change: transform;
   box-sizing: border-box;
   position: absolute;
   left: 0;
   top: 0;
-  z-index: 999;
-  border-radius: 4px;
+  z-index: 10;
   padding: 7px 10px;
   font-size: 14px;
+  border-radius: 6px;
   line-height: 1.2;
   min-width: 10px;
   word-wrap: break-word;
   pointer-events: none;
+  background: var(--backgroundColor);
+  color: var(--color);
+  border: 1px solid var(--borderColor);
 }
 .dark {
-  background: #303133;
-  color: #fff;
+  --backgroundColor: #303133;
+  --color: #fff;
+  --borderColor: transparent;
 }
 .light {
-  color: #303133;
-  background: #fff;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  border: 1px solid #d9d9d9;
+  --backgroundColor: #fff;
+  --color: #303133;
+  --borderColor: #bdc3c6;
 }
 
 .v-tip-fade-enter-active,
@@ -196,6 +243,30 @@ export default {
 .v-tip-fade-enter,
 .v-tip-fade-leave-to {
   opacity: 0;
+}
+.top-tip::after,
+.top-tip::before {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: '';
+  height: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.top-tip::after {
+  border-color: transparent;
+  border-top-color: var(--backgroundColor);
+  border-width: 5px;
+  margin-left: -5px;
+}
+.top-tip::before {
+  border-color: transparent;
+  border-top-color: var(--borderColor);
+  border-width: 6px;
+  margin-left: -6px;
 }
 
 .bottom-tip::after,
@@ -212,38 +283,13 @@ export default {
 
 .bottom-tip::after {
   border-color: transparent;
-  border-bottom-color: #303133;
-  border-width: 2px;
-  margin-left: -2px;
-}
-.bottom-tip::before {
-  border-color: transparent;
-  border-bottom-color: #303133;
+  border-bottom-color: var(--backgroundColor);
   border-width: 5px;
   margin-left: -5px;
 }
-
-.top-tip::after,
-.top-tip::before {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  border: solid transparent;
-  content: '';
-  height: 0;
-  width: 0;
-  pointer-events: none;
-}
-
-.top-tip::after {
+.bottom-tip::before {
   border-color: transparent;
-  border-top-color: #303133;
-  border-width: 3px;
-  margin-left: -3px;
-}
-.top-tip::before {
-  border-color: transparent;
-  border-top-color: #303133;
+  border-bottom-color: var(--borderColor);
   border-width: 6px;
   margin-left: -6px;
 }
@@ -262,13 +308,13 @@ export default {
 
 .right-tip::after {
   border-color: transparent;
-  border-right-color: #303133;
-  border-width: 3px;
-  margin-top: -3px;
+  border-right-color: var(--backgroundColor);
+  border-width: 5px;
+  margin-top: -5px;
 }
 .right-tip::before {
   border-color: transparent;
-  border-right-color: #303133;
+  border-right-color: var(--borderColor);
   border-width: 6px;
   margin-top: -6px;
 }
@@ -287,13 +333,13 @@ export default {
 
 .left-tip::after {
   border-color: transparent;
-  border-left-color: #303133;
-  border-width: 3px;
-  margin-top: -3px;
+  border-left-color: var(--backgroundColor);
+  border-width: 5px;
+  margin-top: -5px;
 }
 .left-tip::before {
   border-color: transparent;
-  border-left-color: #303133;
+  border-left-color: var(--borderColor);
   border-width: 6px;
   margin-top: -6px;
 }

@@ -1,16 +1,16 @@
 import Tip from './directives/tip-directive';
 import buildDirective from './directives/tip-directive';
 
+type Theme = 'dark' | 'light';
 
 interface Options {
   directiveName?: string;
-  theme?: string;
+  theme?: Theme;
 }
-type Theme = 'dark' | 'light';
 const tip = {
   install(Vue, options: Options = {}) {
     const name = options.directiveName || 'tip';
-    Vue.directive(name, buildDirective());
+    Vue.directive(name, buildDirective(options));
   },
 };
 

@@ -2,20 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6112896d-fc5d-484f-a886-ced338e75662" name="默认的" comment="">
+      <change afterPath="$PROJECT_DIR$/src/directives/tooltip.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/propsHandle.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/example/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/example/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/app.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/directives/tip-directive.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/directives/tip-directive.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tip.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/directives/tip-directive.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/directives/tip-directive.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,9 +51,9 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\lxw\Desktop\codework\v-tip\node_modules\prettier" />
     <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
-    <property name="ts.external.directory.path" value="C:\Users\40417\Desktop\codeSpace\vue\v-tip\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Users\lxw\Desktop\codework\v-tip\node_modules\typescript\lib" />
   </component>
-  <component name="RunManager" selected="npm.build">
+  <component name="RunManager" selected="npm.start">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -82,6 +94,7 @@
       <workItem from="1594526297819" duration="44000" />
       <workItem from="1594647279894" duration="1988000" />
       <workItem from="1594649285669" duration="2065000" />
+      <workItem from="1594774464857" duration="16645000" />
     </task>
     <servers />
   </component>
@@ -92,34 +105,34 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="224" key="GridCell.Tab.0.bottom" timestamp="1594728452986">
+    <state width="1877" height="159" key="GridCell.Tab.0.bottom" timestamp="1594806423319">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="224" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594728452986" />
+    <state width="1877" height="159" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
     <state width="1234" height="392" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
-    <state width="1877" height="224" key="GridCell.Tab.0.center" timestamp="1594728452986">
+    <state width="1877" height="159" key="GridCell.Tab.0.center" timestamp="1594806423319">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="224" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594728452986" />
+    <state width="1877" height="159" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
     <state width="1234" height="392" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
-    <state width="1877" height="224" key="GridCell.Tab.0.left" timestamp="1594728452985">
+    <state width="1877" height="159" key="GridCell.Tab.0.left" timestamp="1594806423319">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="224" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594728452985" />
+    <state width="1877" height="159" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
     <state width="1234" height="392" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
-    <state width="1877" height="224" key="GridCell.Tab.0.right" timestamp="1594728452986">
+    <state width="1877" height="159" key="GridCell.Tab.0.right" timestamp="1594806423319">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="224" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594728452986" />
+    <state width="1877" height="159" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
     <state width="1234" height="392" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
     <state x="2381" y="164" key="SettingsEditor" timestamp="1594710457857">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2381" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594710457857" />
-    <state x="3136" y="323" width="567" height="536" key="find.popup" timestamp="1594726949468">
+    <state x="3136" y="323" width="567" height="536" key="find.popup" timestamp="1594806412502">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="3136" y="323" width="567" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594726949468" />
+    <state x="3136" y="323" width="567" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806412502" />
     <state x="1621" y="435" width="597" height="536" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1594648256086" />
     <state x="1576" y="332" key="run.anything.popup" timestamp="1594650830923">
       <screen x="0" y="0" width="2560" height="1400" />

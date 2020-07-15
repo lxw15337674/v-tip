@@ -1,7 +1,11 @@
 import debounce from './debounce';
 import merge from './merge';
+import propsHandle from './propsHandle'
+
 
 export default {
-  debounce: debounce,
-  merge: merge,
+  debounce,
+  merge,
+  propsHandle,
 };
+
