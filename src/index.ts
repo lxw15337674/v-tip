@@ -1,4 +1,3 @@
-import Tip from './directives/tip-directive';
 import buildDirective from './directives/tip-directive';
 
 type Theme = 'dark' | 'light';

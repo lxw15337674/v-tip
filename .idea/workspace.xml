@@ -2,20 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6112896d-fc5d-484f-a886-ced338e75662" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/src/directives/tooltip.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/propsHandle.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/example/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/example/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/directives/tip-directive.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/directives/tip-directive.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tip.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/directives/tip-directive.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/directives/tip-directive.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/directives/tooltip.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/directives/tooltip.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/propsHandle.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +49,7 @@
     <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
     <property name="ts.external.directory.path" value="C:\Users\lxw\Desktop\codework\v-tip\node_modules\typescript\lib" />
   </component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RunManager" selected="npm.build">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -95,6 +91,7 @@
       <workItem from="1594647279894" duration="1988000" />
       <workItem from="1594649285669" duration="2065000" />
       <workItem from="1594774464857" duration="16645000" />
+      <workItem from="1594861621124" duration="11010000" />
     </task>
     <servers />
   </component>
@@ -105,34 +102,46 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1877" height="159" key="GridCell.Tab.0.bottom" timestamp="1594806423319">
+    <state x="2685" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1594880991173">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="159" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
+    <state x="2685" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594880991173" />
+    <state x="2610" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594881099058">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2610" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594881099058" />
+    <state width="1877" height="210" key="GridCell.Tab.0.bottom" timestamp="1594889161819">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="210" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594889161819" />
     <state width="1234" height="392" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
-    <state width="1877" height="159" key="GridCell.Tab.0.center" timestamp="1594806423319">
+    <state width="1877" height="210" key="GridCell.Tab.0.center" timestamp="1594889161819">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="159" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
+    <state width="1877" height="210" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594889161819" />
     <state width="1234" height="392" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
-    <state width="1877" height="159" key="GridCell.Tab.0.left" timestamp="1594806423319">
+    <state width="1877" height="210" key="GridCell.Tab.0.left" timestamp="1594889161819">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="159" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
+    <state width="1877" height="210" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594889161819" />
     <state width="1234" height="392" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
-    <state width="1877" height="159" key="GridCell.Tab.0.right" timestamp="1594806423319">
+    <state width="1877" height="210" key="GridCell.Tab.0.right" timestamp="1594889161819">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="159" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806423319" />
+    <state width="1877" height="210" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594889161819" />
     <state width="1234" height="392" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1594649272789" />
-    <state x="2381" y="164" key="SettingsEditor" timestamp="1594710457857">
+    <state x="2381" y="164" key="SettingsEditor" timestamp="1594887075089">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2381" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594710457857" />
-    <state x="3136" y="323" width="567" height="536" key="find.popup" timestamp="1594806412502">
+    <state x="2381" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594887075089" />
+    <state x="2012" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1594889619229">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="3136" y="323" width="567" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594806412502" />
+    <state x="2012" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594889619229" />
+    <state x="3136" y="323" width="567" height="594" key="find.popup" timestamp="1594885163458">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="3136" y="323" width="567" height="594" key="find.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1594885163458" />
     <state x="1621" y="435" width="597" height="536" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1594648256086" />
     <state x="1576" y="332" key="run.anything.popup" timestamp="1594650830923">
       <screen x="0" y="0" width="2560" height="1400" />

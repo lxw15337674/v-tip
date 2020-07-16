@@ -1,14 +1,7 @@
 <template>
   <!--  v-show="visible" -->
   <transition name="v-tip-fade">
-    <div
-      ref="tip"
-      id="_tip"
-      class="v-tip"
-      :class="tipClass"
-      :style="tipStyle"
-      v-show="visible"
-    >
+    <div class="v-tip" :class="tipClass" :style="tipStyle" v-show="visible">
       {{ content }}
     </div>
   </transition>
@@ -48,7 +41,7 @@ export default {
       require: true,
     },
 
-    ref: {
+    html: {
       type: Object,
     },
     class: {
@@ -89,15 +82,6 @@ export default {
     },
   },
   watch: {
-    ref:{
-      immediate:true,
-      handler(newValue){
-        console.log(newValue)
-        if(newValue){
-          debugger
-        }
-      }
-    },
     triggers: {
       immediate: true,
       handler(newValue, oldValue) {
@@ -108,6 +92,9 @@ export default {
     visible: {
       handler() {
         if (this.visible) {
+          if (this.html) {
+            this.$el.appendChild(this.html);
+          }
           window.addEventListener('resize', this.handleResize);
         } else {
           window.removeEventListener('resize', this.handleResize);
@@ -153,7 +140,7 @@ export default {
     },
     setPosition(event) {
       let elPosition = this.el.getBoundingClientRect();
-      let tipPosition = this.$refs.tip.getBoundingClientRect();
+      let tipPosition = this.$el.getBoundingClientRect();
       switch (this.positions) {
         case 'cursor':
           this.position = {
@@ -220,7 +207,7 @@ export default {
   line-height: 1.2;
   min-width: 10px;
   word-wrap: break-word;
-  pointer-events: none;
+  /*pointer-events: none;*/
   background: var(--backgroundColor);
   color: var(--color);
   border: 1px solid var(--borderColor);
