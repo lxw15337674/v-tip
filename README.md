@@ -1,6 +1,5 @@
 # v-tip
 基于rollup、ts、vue的自定义指令提示框
-[TOC]
 
 ## 参考
 [vue-directive-tooltip](https://github.com/hekigan/vue-directive-tooltip)
@@ -23,40 +22,52 @@
 
 ## 用法
 
-```js
-Vue.use(Vtip,{directiveName:'tip',theme:'dark'})
-```
+1. 安装插件
 
-```html
-<!--  基本模式  -->
-<div v-tip="'test'">test</div>
+   ```
+   npm install -s @lxw15337674/v-tip
+   ```
 
-<!--  基于content属性  -->
-<div v-tip="{
-        content: 'test',
-        delay: 1000,
-        theme:'dark',
-        positions: 'top',
-        triggers: 'click',
-        class: 'tooltip-custom tip',
-      }" >
-    test
-</div>
+2. 注册为全局组件
 
+   ```
+   Vue.use(Vtip,{directiveName:'tip',theme:'dark'})
+   ```
 
-<!--  基于ref属性  -->
-<div v-tip="{
-        ref: 'tipContent',
-        delay: 1000,
-      }" >
-    test
-</div>
-<div ref='tipContent'>
-    tipContent
-</div>
-```
+   [详细全局参数配置](#注册参数)
 
+3. 使用示例：
 
+   ```html
+   <!--  基本模式  -->
+   <div v-tip="'test'">test</div>
+   
+   <!--  基于content属性  -->
+   <div v-tip="{
+           content: 'test',
+           delay: 1000,
+           theme:'dark',
+           positions: 'top',
+           triggers: 'click',
+           class: 'tooltip-custom tip',
+         }" >
+       test
+   </div>
+   
+   
+   <!--  基于ref属性  -->
+   <div v-tip="{
+           ref: 'tipContent',
+           delay: 1000,
+         }" >
+       test
+   </div>
+   <div ref='tipContent'>
+       tipContent
+   </div>
+   ```
+
+   [详细参数配置](#指令参数)
 
 ## 注册参数
 
