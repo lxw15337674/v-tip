@@ -1,6 +1,6 @@
 import Vue from 'vue';
 // @ts-ignore
-import tipComponent from '@/components/tip.vue';
+import tipComponent from '../components/tip.vue';
 
 type Theme = 'dark' | 'light';
 type Positions = 'left' | 'right' | 'top' | 'bottom' | 'cursor';

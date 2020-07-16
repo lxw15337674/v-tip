@@ -11,26 +11,18 @@ import typescript from 'rollup-plugin-typescript2';
 
 const production = !process.env.ROLLUP_WATCH;
 const port = 8080;
-
 export default {
-  input: 'example/main.js',
-  output: {
-    file: 'public/assets/app.js',
-    format: 'iife',
-    sourcemap: false,
-    name: 'app',
-  },
   plugins: [
     alias({
       entries: [
-        { find: '@', replacement: __dirname + '/src' }
+        { find: '@', replacement:'../src' }
       ]
     }),
     typescript({
       tsconfig: 'tsconfig.json',
     }),
     postcss({ extract: true }),
-    vue({ css: false }),
+    vue({ css: true }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),

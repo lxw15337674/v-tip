@@ -19,6 +19,7 @@
     >
       test1
     </button>
+    <div v-tip="'test'">test</div>
     <button
       ref="test1"
       @click="click('test1')"
