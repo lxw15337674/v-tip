@@ -14,11 +14,13 @@
 
 ## TODO
 
-- [手动模式](https://akryum.github.io/v-tooltip/#/)
+1. 增加[手动模式](https://akryum.github.io/v-tooltip/#/)
 
--  自动隐藏开关
+2. 增加自动隐藏开关
 
-  > 目前`hover`为自动隐藏，`click`为手动隐藏
+	> 目前`hover`为自动隐藏，`click`为手动隐藏
+
+3. 增加上传、npm发布脚本
 
 ## 用法
 
