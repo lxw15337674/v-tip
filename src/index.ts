@@ -1,27 +1,16 @@
-import { Tip } from './directives/tip-directive';
+import buildDirective from './directives/tip-directive';
 
-function buildDirective(theme: string) {
-  return {
-    bind(el, binding, vnode, oldVnode) {
-      el.tip = new Tip(el, binding);
-    },
-    inserted(el, binding, vnode, oldVnode) {},
-    unbind(el, binding, vnode, oldVnode) {
-      el.tip.desotry();
-    },
-  };
-}
+type Theme = 'dark' | 'light';
+
 interface Options {
   directiveName?: string;
-  theme?: string;
+  theme?: Theme;
 }
 const tip = {
   install(Vue, options: Options = {}) {
     const name = options.directiveName || 'tip';
-    Tip.defaults(options.theme || 'dark');
-    Vue.directive(name, buildDirective);
+    Vue.directive(name, buildDirective(options));
   },
-  directive: buildDirective,
 };
 
 export default tip;

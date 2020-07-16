@@ -23,7 +23,7 @@ export default {
   plugins: [
     alias({
       entries: [
-        { find: '@', replacement: __dirname + '/src/' }
+        { find: '@', replacement: __dirname + '/src' }
       ]
     }),
     typescript({
@@ -34,7 +34,7 @@ export default {
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    resolve({ extensions: ['.js', '.vue'], browser: true, preferBuiltins: true }),
+    resolve({ extensions: ['.js', '.vue','.ts'], browser: true, preferBuiltins: true }),
     commonjs(),
     esbuild({
       minify: production,
