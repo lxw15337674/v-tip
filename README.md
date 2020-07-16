@@ -33,6 +33,8 @@
 2. 注册为全局组件
 
    ```
+   import tip from '@lxw15337674/v-tip';
+   
    Vue.use(Vtip,{directiveName:'tip',theme:'dark'})
    ```
 
