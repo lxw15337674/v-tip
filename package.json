@@ -1,9 +1,13 @@
 {
-  "name": "my-project",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "15515255978 <404174262@qq.com>",
-  "private": true,
+  "name": "@lxw15337674/v-tip",
+  "version": "1.0.1",
+  "description": "a tooltip directive",
+  "author": "bhwa233 <404174262@qq.com>",
+  "public": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lxw15337674/v-tip.git"
+  },
   "scripts": {
     "start": "rollup -c -w",
     "build": "rollup -c",
