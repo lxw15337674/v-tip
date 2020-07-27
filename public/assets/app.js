@@ -7587,8 +7587,62 @@
       return script;
   }
 
+  const isOldIE = typeof navigator !== 'undefined' &&
+      /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+  function createInjector(context) {
+      return (id, style) => addStyle(id, style);
+  }
+  let HEAD;
+  const styles = {};
+  function addStyle(id, css) {
+      const group = isOldIE ? css.media || 'default' : id;
+      const style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+      if (!style.ids.has(id)) {
+          style.ids.add(id);
+          let code = css.source;
+          if (css.map) {
+              // https://developer.chrome.com/devtools/docs/javascript-debugging
+              // this makes source maps inside style tags work properly in Chrome
+              code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+              // http://stackoverflow.com/a/26603875
+              code +=
+                  '\n/*# sourceMappingURL=data:application/json;base64,' +
+                      btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                      ' */';
+          }
+          if (!style.element) {
+              style.element = document.createElement('style');
+              style.element.type = 'text/css';
+              if (css.media)
+                  style.element.setAttribute('media', css.media);
+              if (HEAD === undefined) {
+                  HEAD = document.head || document.getElementsByTagName('head')[0];
+              }
+              HEAD.appendChild(style.element);
+          }
+          if ('styleSheet' in style.element) {
+              style.styles.push(code);
+              style.element.styleSheet.cssText = style.styles
+                  .filter(Boolean)
+                  .join('\n');
+          }
+          else {
+              const index = style.ids.size - 1;
+              const textNode = document.createTextNode(code);
+              const nodes = style.element.childNodes;
+              if (nodes[index])
+                  style.element.removeChild(nodes[index]);
+              if (nodes.length)
+                  style.element.insertBefore(textNode, nodes[index]);
+              else
+                  style.element.appendChild(textNode);
+          }
+      }
+  }
+
   /* script */
   const __vue_script__ = script;
+
   /* template */
   var __vue_render__ = function() {
     var _vm = this;
@@ -7777,15 +7831,17 @@
   __vue_render__._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__ = undefined;
+    const __vue_inject_styles__ = function (inject) {
+      if (!inject) return
+      inject("data-v-159d5e73_0", { source: "\n.app {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\n.toggle {\n  position: fixed;\n}\nbutton {\n  height: 100px;\n  width: 100px;\n}\n", map: {"version":3,"sources":["C:\\Users\\lxw\\Desktop\\codework\\v-tip\\example\\App.vue"],"names":[],"mappings":";AAiHA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;AACA;AACA;EACA,eAAA;AACA;AACA;EACA,aAAA;EACA,YAAA;AACA","file":"App.vue","sourcesContent":["<template>\n  <div class=\"app\">\n    <!-- <div v-tip=\"\">test</div> -->\n    <div class=\"toggle\">\n<!--      <button @click=\"toggle\">切换</button>-->\n    </div>\n    <button\n      class=\"button\"\n      @click=\"click('test1')\"\n      v-if=\"show\"\n      v-for=\"item in 1000\"\n      v-tip=\"{\n        content: content,\n        delay: 1000,\n        positions: 'top',\n        triggers: 'click',\n        class: 'tooltip-custom tip',\n      }\"\n    >\n      test1\n    </button>\n    <div v-tip=\"'test'\">test</div>\n    <button\n      ref=\"test1\"\n      @click=\"click('test1')\"\n      v-tip=\"{\n        content: content,\n        delay: 1000,\n        theme: 'dark',\n        positions: 'top',\n        triggers: 'click',\n        class: 'tooltip-custom tip',\n      }\"\n    >\n      test1\n    </button>\n    <button\n      ref=\"test2\"\n      @click=\"click('test2')\"\n      v-tip=\"{\n        content: content,\n        delay: 500,\n        positions: 'left',\n        triggers: 'click',\n      }\"\n    >\n      test2\n    </button>\n    <button\n      class=\"button\"\n      ref=\"button\"\n      v-tip=\"{\n        content: content,\n        delay: 500,\n        positions: 'cursor',\n        triggers: 'click',\n      }\"\n    >\n      {{ content }}\n    </button>\n    <button\n      class=\"button\"\n      v-tip=\"{\n        ref: content,\n        delay: 500,\n        positions: 'cursor',\n        triggers: 'click',\n      }\"\n    >\n      ref\n    </button>\n    <button\n      class=\"button\"\n      v-tip=\"{\n        ref: 'content',\n        delay: 500,\n        positions: 'cursor',\n        triggers: 'click',\n      }\"\n    >\n      ref\n    </button>\n    <!--    <button ref=\"button\" class=\"button\" v-tip=\"content\">-->\n    <!--      test-->\n    <!--    </button>-->\n\n    <!--    <div v-tip=\"{ content: '11' }\">11</div>-->\n    <!--    <div ref=\"tooltipRef\">ref123123</div>-->\n  </div>\n</template>\n\n<script>\nexport default {\n  name: 'App',\n  data: function () {\n    return {\n      content: 'button',\n      show: false,\n      loop: 1,\n    };\n  },\n  methods: {\n    click(content) {\n      this.content = content;\n    },\n    toggle() {\n      this.show = !this.show;\n    },\n  },\n};\n</script>\n\n<style>\n.app {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n}\n.toggle {\n  position: fixed;\n}\nbutton {\n  height: 100px;\n  width: 100px;\n}\n</style>\n"]}, media: undefined });
+
+    };
     /* scoped */
     const __vue_scope_id__ = undefined;
     /* module identifier */
     const __vue_module_identifier__ = undefined;
     /* functional template */
     const __vue_is_functional_template__ = false;
-    /* style inject */
-    
     /* style inject SSR */
     
     /* style inject shadow dom */
@@ -7800,7 +7856,7 @@
       __vue_is_functional_template__,
       __vue_module_identifier__,
       false,
-      undefined,
+      createInjector,
       undefined,
       undefined
     );
@@ -8011,6 +8067,7 @@
 
   /* script */
   const __vue_script__$1 = script$1;
+
   /* template */
   var __vue_render__$1 = function() {
     var _vm = this;
@@ -8040,15 +8097,17 @@
   __vue_render__$1._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$1 = undefined;
+    const __vue_inject_styles__$1 = function (inject) {
+      if (!inject) return
+      inject("data-v-ce87551c_0", { source: "\n.v-tip[data-v-ce87551c] {\r\n  will-change: transform;\r\n  box-sizing: border-box;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  z-index: 10;\r\n  padding: 7px 10px;\r\n  font-size: 14px;\r\n  border-radius: 6px;\r\n  line-height: 1.2;\r\n  min-width: 10px;\r\n  word-wrap: break-word;\r\n  /*pointer-events: none;*/\r\n  background: var(--backgroundColor);\r\n  color: var(--color);\r\n  border: 1px solid var(--borderColor);\n}\n.dark[data-v-ce87551c] {\r\n  --backgroundColor: #303133;\r\n  --color: #fff;\r\n  --borderColor: transparent;\n}\n.light[data-v-ce87551c] {\r\n  --backgroundColor: #fff;\r\n  --color: #303133;\r\n  --borderColor: #bdc3c6;\n}\n.v-tip-fade-enter-active[data-v-ce87551c],\r\n.v-tip-fade-leave-active[data-v-ce87551c] {\r\n  transition: opacity 0.3s;\n}\n.v-tip-fade-enter[data-v-ce87551c],\r\n.v-tip-fade-leave-to[data-v-ce87551c] {\r\n  opacity: 0;\n}\n.top-tip[data-v-ce87551c]::after,\r\n.top-tip[data-v-ce87551c]::before {\r\n  position: absolute;\r\n  top: 100%;\r\n  left: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\n}\n.top-tip[data-v-ce87551c]::after {\r\n  border-color: transparent;\r\n  border-top-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-left: -5px;\n}\n.top-tip[data-v-ce87551c]::before {\r\n  border-color: transparent;\r\n  border-top-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-left: -6px;\n}\n.bottom-tip[data-v-ce87551c]::after,\r\n.bottom-tip[data-v-ce87551c]::before {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  left: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\n}\n.bottom-tip[data-v-ce87551c]::after {\r\n  border-color: transparent;\r\n  border-bottom-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-left: -5px;\n}\n.bottom-tip[data-v-ce87551c]::before {\r\n  border-color: transparent;\r\n  border-bottom-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-left: -6px;\n}\n.right-tip[data-v-ce87551c]::after,\r\n.right-tip[data-v-ce87551c]::before {\r\n  position: absolute;\r\n  right: 100%;\r\n  top: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\n}\n.right-tip[data-v-ce87551c]::after {\r\n  border-color: transparent;\r\n  border-right-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-top: -5px;\n}\n.right-tip[data-v-ce87551c]::before {\r\n  border-color: transparent;\r\n  border-right-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-top: -6px;\n}\n.left-tip[data-v-ce87551c]::after,\r\n.left-tip[data-v-ce87551c]::before {\r\n  position: absolute;\r\n  left: 100%;\r\n  top: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\n}\n.left-tip[data-v-ce87551c]::after {\r\n  border-color: transparent;\r\n  border-left-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-top: -5px;\n}\n.left-tip[data-v-ce87551c]::before {\r\n  border-color: transparent;\r\n  border-left-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-top: -6px;\n}\r\n", map: {"version":3,"sources":["C:\\Users\\lxw\\Desktop\\codework\\v-tip\\src\\components\\tip.vue"],"names":[],"mappings":";AAoMA;EACA,sBAAA;EACA,sBAAA;EACA,kBAAA;EACA,OAAA;EACA,MAAA;EACA,WAAA;EACA,iBAAA;EACA,eAAA;EACA,kBAAA;EACA,gBAAA;EACA,eAAA;EACA,qBAAA;EACA,wBAAA;EACA,kCAAA;EACA,mBAAA;EACA,oCAAA;AACA;AACA;EACA,0BAAA;EACA,aAAA;EACA,0BAAA;AACA;AACA;EACA,uBAAA;EACA,gBAAA;EACA,sBAAA;AACA;AAEA;;EAEA,wBAAA;AACA;AACA;;EAEA,UAAA;AACA;AACA;;EAEA,kBAAA;EACA,SAAA;EACA,SAAA;EACA,yBAAA;EACA,WAAA;EACA,SAAA;EACA,QAAA;EACA,oBAAA;AACA;AAEA;EACA,yBAAA;EACA,wCAAA;EACA,iBAAA;EACA,iBAAA;AACA;AACA;EACA,yBAAA;EACA,oCAAA;EACA,iBAAA;EACA,iBAAA;AACA;AAEA;;EAEA,kBAAA;EACA,YAAA;EACA,SAAA;EACA,yBAAA;EACA,WAAA;EACA,SAAA;EACA,QAAA;EACA,oBAAA;AACA;AAEA;EACA,yBAAA;EACA,2CAAA;EACA,iBAAA;EACA,iBAAA;AACA;AACA;EACA,yBAAA;EACA,uCAAA;EACA,iBAAA;EACA,iBAAA;AACA;AAEA;;EAEA,kBAAA;EACA,WAAA;EACA,QAAA;EACA,yBAAA;EACA,WAAA;EACA,SAAA;EACA,QAAA;EACA,oBAAA;AACA;AAEA;EACA,yBAAA;EACA,0CAAA;EACA,iBAAA;EACA,gBAAA;AACA;AACA;EACA,yBAAA;EACA,sCAAA;EACA,iBAAA;EACA,gBAAA;AACA;AAEA;;EAEA,kBAAA;EACA,UAAA;EACA,QAAA;EACA,yBAAA;EACA,WAAA;EACA,SAAA;EACA,QAAA;EACA,oBAAA;AACA;AAEA;EACA,yBAAA;EACA,yCAAA;EACA,iBAAA;EACA,gBAAA;AACA;AACA;EACA,yBAAA;EACA,qCAAA;EACA,iBAAA;EACA,gBAAA;AACA","file":"tip.vue","sourcesContent":["<template>\r\n  <!--  v-show=\"visible\" -->\r\n  <transition name=\"v-tip-fade\">\r\n    <div class=\"v-tip\" :class=\"tipClass\" :style=\"tipStyle\" v-show=\"visible\">\r\n      {{ content }}\r\n    </div>\r\n  </transition>\r\n</template>\r\n\r\n<script>\r\nexport default {\r\n  name: 'tip',\r\n  computed: {\r\n    tipStyle() {\r\n      return {\r\n        transform: `translate3d(${this.position.left}px, ${this.position.top}px,0px)`,\r\n      };\r\n    },\r\n    tipClass() {\r\n      let classList = [this.theme];\r\n      if (['right', 'left', 'top', 'bottom'].indexOf(this.positions) !== -1) {\r\n        classList.push(`${this.positions}-tip`);\r\n      }\r\n      if (this.class) {\r\n        classList.push(this.class.split(' '));\r\n      }\r\n      return classList;\r\n    },\r\n  },\r\n  data() {\r\n    return {\r\n      position: {\r\n        left: 0,\r\n        top: 0,\r\n      },\r\n      visible: false,\r\n    };\r\n  },\r\n  props: {\r\n    el: {\r\n      require: true,\r\n    },\r\n\r\n    html: {\r\n      type: Object,\r\n    },\r\n    class: {\r\n      type: String,\r\n    },\r\n    theme: {\r\n      type: String,\r\n      default: 'dark',\r\n      validator: function (value) {\r\n        return ['dark', 'light'].indexOf(value) !== -1;\r\n      },\r\n    },\r\n    content: {\r\n      default: '',\r\n    },\r\n    offset: {\r\n      default: 10,\r\n      type: Number,\r\n    },\r\n    delay: {\r\n      default: 200,\r\n      type: Number,\r\n    },\r\n    triggers: {\r\n      default: 'hover',\r\n      validator: function (value) {\r\n        return ['hover', 'click'].indexOf(value) !== -1;\r\n      },\r\n    },\r\n    positions: {\r\n      type: String,\r\n      default: 'bottom',\r\n      validator: function (value) {\r\n        return (\r\n          ['right', 'left', 'top', 'bottom', 'cursor'].indexOf(value) !== -1\r\n        );\r\n      },\r\n    },\r\n  },\r\n  watch: {\r\n    triggers: {\r\n      immediate: true,\r\n      handler(newValue, oldValue) {\r\n        this.unBindEvent(oldValue);\r\n        this.bindEvent();\r\n      },\r\n    },\r\n    visible: {\r\n      handler() {\r\n        if (this.visible) {\r\n          if (this.html) {\r\n            this.$el.appendChild(this.html);\r\n          }\r\n          window.addEventListener('resize', this.handleResize);\r\n        } else {\r\n          window.removeEventListener('resize', this.handleResize);\r\n        }\r\n      },\r\n    },\r\n  },\r\n  destroyed() {\r\n    window.removeEventListener('resize', this.handleResize);\r\n  },\r\n  methods: {\r\n    bindEvent() {\r\n      if (this.triggers === 'hover') {\r\n        this.el.addEventListener('mouseenter', this.handlerHover);\r\n        this.el.addEventListener('mouseleave', this.tooltipHidden);\r\n      }\r\n      if (this.triggers === 'click') {\r\n        this.el.addEventListener('click', this.tooltipToggle);\r\n      }\r\n    },\r\n    unBindEvent(triggers) {\r\n      if (triggers || this.triggers === 'hover') {\r\n        this.el.removeEventListener('mouseenter', this.handlerHover);\r\n        this.el.removeEventListener('mouseleave', this.tooltipHidden);\r\n      }\r\n      if (triggers || this.triggers === 'click') {\r\n        this.el.removeEventListener('click', this.tooltipToggle);\r\n      }\r\n    },\r\n    handleResize(event) {\r\n      if (this.visible) {\r\n        if (this.positions === 'cursor') {\r\n          this.visible = false;\r\n        }\r\n        this.setPosition(event);\r\n      }\r\n    },\r\n    tooltipToggle(event) {\r\n      this.visible = !this.visible;\r\n      if (this.visible) {\r\n        this.$nextTick().then(() => this.setPosition(event));\r\n      }\r\n    },\r\n    setPosition(event) {\r\n      let elPosition = this.el.getBoundingClientRect();\r\n      let tipPosition = this.$el.getBoundingClientRect();\r\n      switch (this.positions) {\r\n        case 'cursor':\r\n          this.position = {\r\n            left: event.pageX + this.offset,\r\n            top: event.pageY + this.offset,\r\n          };\r\n          return;\r\n        case 'left':\r\n          this.position = {\r\n            left: elPosition.left - this.offset - tipPosition.width,\r\n            top:\r\n              elPosition.top + elPosition.height / 2 - tipPosition.height / 2,\r\n          };\r\n          return;\r\n        case 'right':\r\n          this.position = {\r\n            left: elPosition.right + this.offset,\r\n            top:\r\n              elPosition.top + elPosition.height / 2 - tipPosition.height / 2,\r\n          };\r\n          return;\r\n        case 'top':\r\n          this.position = {\r\n            left:\r\n              elPosition.left + elPosition.width / 2 - tipPosition.width / 2,\r\n            top: elPosition.top - this.offset - tipPosition.height,\r\n          };\r\n          return;\r\n        case 'bottom':\r\n          this.position = {\r\n            left:\r\n              elPosition.left + elPosition.width / 2 - tipPosition.width / 2,\r\n            top: elPosition.bottom + this.offset,\r\n          };\r\n      }\r\n    },\r\n    handlerHover(event) {\r\n      if (this.visible) return;\r\n      clearTimeout(this._scheduleTimer);\r\n      this._scheduleTimer = window.setTimeout(() => {\r\n        this.visible = true;\r\n        this.$nextTick().then(() => this.setPosition(event));\r\n      }, this.delay);\r\n    },\r\n    tooltipHidden() {\r\n      this.visible = false;\r\n      clearTimeout(this._scheduleTimer);\r\n    },\r\n  },\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.v-tip {\r\n  will-change: transform;\r\n  box-sizing: border-box;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  z-index: 10;\r\n  padding: 7px 10px;\r\n  font-size: 14px;\r\n  border-radius: 6px;\r\n  line-height: 1.2;\r\n  min-width: 10px;\r\n  word-wrap: break-word;\r\n  /*pointer-events: none;*/\r\n  background: var(--backgroundColor);\r\n  color: var(--color);\r\n  border: 1px solid var(--borderColor);\r\n}\r\n.dark {\r\n  --backgroundColor: #303133;\r\n  --color: #fff;\r\n  --borderColor: transparent;\r\n}\r\n.light {\r\n  --backgroundColor: #fff;\r\n  --color: #303133;\r\n  --borderColor: #bdc3c6;\r\n}\r\n\r\n.v-tip-fade-enter-active,\r\n.v-tip-fade-leave-active {\r\n  transition: opacity 0.3s;\r\n}\r\n.v-tip-fade-enter,\r\n.v-tip-fade-leave-to {\r\n  opacity: 0;\r\n}\r\n.top-tip::after,\r\n.top-tip::before {\r\n  position: absolute;\r\n  top: 100%;\r\n  left: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.top-tip::after {\r\n  border-color: transparent;\r\n  border-top-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-left: -5px;\r\n}\r\n.top-tip::before {\r\n  border-color: transparent;\r\n  border-top-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-left: -6px;\r\n}\r\n\r\n.bottom-tip::after,\r\n.bottom-tip::before {\r\n  position: absolute;\r\n  bottom: 100%;\r\n  left: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.bottom-tip::after {\r\n  border-color: transparent;\r\n  border-bottom-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-left: -5px;\r\n}\r\n.bottom-tip::before {\r\n  border-color: transparent;\r\n  border-bottom-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-left: -6px;\r\n}\r\n\r\n.right-tip::after,\r\n.right-tip::before {\r\n  position: absolute;\r\n  right: 100%;\r\n  top: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.right-tip::after {\r\n  border-color: transparent;\r\n  border-right-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-top: -5px;\r\n}\r\n.right-tip::before {\r\n  border-color: transparent;\r\n  border-right-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-top: -6px;\r\n}\r\n\r\n.left-tip::after,\r\n.left-tip::before {\r\n  position: absolute;\r\n  left: 100%;\r\n  top: 50%;\r\n  border: solid transparent;\r\n  content: '';\r\n  height: 0;\r\n  width: 0;\r\n  pointer-events: none;\r\n}\r\n\r\n.left-tip::after {\r\n  border-color: transparent;\r\n  border-left-color: var(--backgroundColor);\r\n  border-width: 5px;\r\n  margin-top: -5px;\r\n}\r\n.left-tip::before {\r\n  border-color: transparent;\r\n  border-left-color: var(--borderColor);\r\n  border-width: 6px;\r\n  margin-top: -6px;\r\n}\r\n</style>\r\n"]}, media: undefined });
+
+    };
     /* scoped */
     const __vue_scope_id__$1 = "data-v-ce87551c";
     /* module identifier */
     const __vue_module_identifier__$1 = undefined;
     /* functional template */
     const __vue_is_functional_template__$1 = false;
-    /* style inject */
-    
     /* style inject SSR */
     
     /* style inject shadow dom */
@@ -8063,7 +8122,7 @@
       __vue_is_functional_template__$1,
       __vue_module_identifier__$1,
       false,
-      undefined,
+      createInjector,
       undefined,
       undefined
     );

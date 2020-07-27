@@ -2,7 +2,6 @@ import alias from '@rollup/plugin-alias';
 import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import postcss from 'rollup-plugin-postcss';
 import vue from 'rollup-plugin-vue';
 import esbuild from 'rollup-plugin-esbuild';
 import serve from 'rollup-plugin-serve';
