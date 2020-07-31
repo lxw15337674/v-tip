@@ -35,7 +35,7 @@
    ```
    import tip from '@lxw15337674/v-tip';
    
-   Vue.use(Vtip,{directiveName:'tip',theme:'dark'})
+   Vue.use(tip,{directiveName:'tip',theme:'dark'})
    ```
 
    [详细全局参数配置](#注册参数)
