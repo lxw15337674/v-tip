@@ -10,7 +10,6 @@ const tip = {
   install(Vue, options: Options = {}) {
     const name = options.directiveName || 'tip';
     Vue.directive(name, buildDirective(options));
-    console.log('注册成功');
   },
 };
 export default tip;
