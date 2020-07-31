@@ -27,7 +27,7 @@
 1. 安装插件
 
    ```
-   npm install -s @lxw15337674/v-tip
+   npm install -s v-directive-tooltip
    ```
 
 2. 注册为全局组件

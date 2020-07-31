@@ -22,12 +22,8 @@
     "pretty": true
   },
   "paths": {
-    "@/*": [
-      "src/*"
-    ]
+    "@/*": ["src/*"]
   },
-  "include": [
-    "**/*.ts"
-  ],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }

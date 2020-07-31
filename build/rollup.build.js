@@ -1,19 +1,19 @@
 import base from './rollup.base'
 import babel from 'rollup-plugin-babel'
 import { merge } from 'lodash'
-const config =Object.assign({},base,{
-  input: 'src/index.ts',
+const config = merge(base, {
+  input: 'src/index.js',
   plugins: [
     babel({
       exclude: 'node_modules/**',
     }),
   ],
-  output:{
+  output: {
     exports: 'named',
-    file: 'dist/v-tip.js',
+    file: 'dist/index.js',
     format: 'umd',
-    name: 'v-tip',
+    name: 'index',
+    assetFileNames: "[name]-[hash][extname]",
   }
 })
-
 export default config

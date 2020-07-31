@@ -1,6 +1,6 @@
 {
-  "name": "@lxw15337674/v-tip",
-  "version": "1.1.1",
+  "name": "v-directive-tooltip",
+  "version": "1.0.0",
   "description": "a tooltip directive  with vue2",
   "author": "bhwa233 <404174262@qq.com>",
   "public": true,
