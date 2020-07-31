@@ -7493,13 +7493,105 @@
     }, 0);
   }
 
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
   var script = {
-    name: "App",
-    data: function() {
+    name: 'App',
+    data: function () {
       return {
-        content: "button",
+        content: 'button',
         show: false,
-        loop: 1
+        loop: 1,
       };
     },
     methods: {
@@ -7508,8 +7600,8 @@
       },
       toggle() {
         this.show = !this.show;
-      }
-    }
+      },
+    },
   };
 
   function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -7887,75 +7979,88 @@
       return __assign.apply(this, arguments);
   };
 
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
   var script$1 = {
-    name: "tip",
+    name: 'tip',
     computed: {
       tipStyle() {
         return {
-          transform: `translate3d(${this.position.left}px, ${this.position.top}px,0px)`
+          transform: `translate3d(${this.position.left}px, ${this.position.top}px,0px)`,
         };
       },
       tipClass() {
         let classList = [this.theme];
-        if (["right", "left", "top", "bottom"].indexOf(this.positions) !== -1) {
+        if (['right', 'left', 'top', 'bottom'].indexOf(this.positions) !== -1) {
           classList.push(`${this.positions}-tip`);
         }
         if (this.class) {
-          classList.push(this.class.split(" "));
+          classList.push(this.class.split(' '));
         }
         return classList;
-      }
+      },
     },
     data() {
       return {
         position: {
           left: 0,
-          top: 0
+          top: 0,
         },
-        visible: false
+        visible: false,
       };
     },
     props: {
       el: {
-        require: true
+        require: true,
       },
+
       html: {
-        type: Object
+        type: Object,
       },
       class: {
-        type: String
+        type: String,
       },
       theme: {
         type: String,
-        default: "dark",
-        validator: function(value) {
-          return ["dark", "light"].indexOf(value) !== -1;
-        }
+        default: 'dark',
+        validator: function (value) {
+          return ['dark', 'light'].indexOf(value) !== -1;
+        },
       },
       content: {
-        default: ""
+        default: '',
       },
       offset: {
         default: 10,
-        type: Number
+        type: Number,
       },
       delay: {
         default: 200,
-        type: Number
+        type: Number,
       },
       triggers: {
-        default: "hover",
-        validator: function(value) {
-          return ["hover", "click"].indexOf(value) !== -1;
-        }
+        default: 'hover',
+        validator: function (value) {
+          return ['hover', 'click'].indexOf(value) !== -1;
+        },
       },
       positions: {
         type: String,
-        default: "bottom",
-        validator: function(value) {
-          return ["right", "left", "top", "bottom", "cursor"].indexOf(value) !== -1;
-        }
-      }
+        default: 'bottom',
+        validator: function (value) {
+          return (
+            ['right', 'left', 'top', 'bottom', 'cursor'].indexOf(value) !== -1
+          );
+        },
+      },
     },
     watch: {
       triggers: {
@@ -7963,7 +8068,7 @@
         handler(newValue, oldValue) {
           this.unBindEvent(oldValue);
           this.bindEvent();
-        }
+        },
       },
       visible: {
         handler() {
@@ -7971,38 +8076,38 @@
             if (this.html) {
               this.$el.appendChild(this.html);
             }
-            window.addEventListener("resize", this.handleResize);
+            window.addEventListener('resize', this.handleResize);
           } else {
-            window.removeEventListener("resize", this.handleResize);
+            window.removeEventListener('resize', this.handleResize);
           }
-        }
-      }
+        },
+      },
     },
     destroyed() {
-      window.removeEventListener("resize", this.handleResize);
+      window.removeEventListener('resize', this.handleResize);
     },
     methods: {
       bindEvent() {
-        if (this.triggers === "hover") {
-          this.el.addEventListener("mouseenter", this.handlerHover);
-          this.el.addEventListener("mouseleave", this.tooltipHidden);
+        if (this.triggers === 'hover') {
+          this.el.addEventListener('mouseenter', this.handlerHover);
+          this.el.addEventListener('mouseleave', this.tooltipHidden);
         }
-        if (this.triggers === "click") {
-          this.el.addEventListener("click", this.tooltipToggle);
+        if (this.triggers === 'click') {
+          this.el.addEventListener('click', this.tooltipToggle);
         }
       },
       unBindEvent(triggers) {
-        if (triggers || this.triggers === "hover") {
-          this.el.removeEventListener("mouseenter", this.handlerHover);
-          this.el.removeEventListener("mouseleave", this.tooltipHidden);
+        if (triggers || this.triggers === 'hover') {
+          this.el.removeEventListener('mouseenter', this.handlerHover);
+          this.el.removeEventListener('mouseleave', this.tooltipHidden);
         }
-        if (triggers || this.triggers === "click") {
-          this.el.removeEventListener("click", this.tooltipToggle);
+        if (triggers || this.triggers === 'click') {
+          this.el.removeEventListener('click', this.tooltipToggle);
         }
       },
       handleResize(event) {
         if (this.visible) {
-          if (this.positions === "cursor") {
+          if (this.positions === 'cursor') {
             this.visible = false;
           }
           this.setPosition(event);
@@ -8018,40 +8123,43 @@
         let elPosition = this.el.getBoundingClientRect();
         let tipPosition = this.$el.getBoundingClientRect();
         switch (this.positions) {
-          case "cursor":
+          case 'cursor':
             this.position = {
               left: event.pageX + this.offset,
-              top: event.pageY + this.offset
+              top: event.pageY + this.offset,
             };
             return;
-          case "left":
+          case 'left':
             this.position = {
               left: elPosition.left - this.offset - tipPosition.width,
-              top: elPosition.top + elPosition.height / 2 - tipPosition.height / 2
+              top:
+                elPosition.top + elPosition.height / 2 - tipPosition.height / 2,
             };
             return;
-          case "right":
+          case 'right':
             this.position = {
               left: elPosition.right + this.offset,
-              top: elPosition.top + elPosition.height / 2 - tipPosition.height / 2
+              top:
+                elPosition.top + elPosition.height / 2 - tipPosition.height / 2,
             };
             return;
-          case "top":
+          case 'top':
             this.position = {
-              left: elPosition.left + elPosition.width / 2 - tipPosition.width / 2,
-              top: elPosition.top - this.offset - tipPosition.height
+              left:
+                elPosition.left + elPosition.width / 2 - tipPosition.width / 2,
+              top: elPosition.top - this.offset - tipPosition.height,
             };
             return;
-          case "bottom":
+          case 'bottom':
             this.position = {
-              left: elPosition.left + elPosition.width / 2 - tipPosition.width / 2,
-              top: elPosition.bottom + this.offset
+              left:
+                elPosition.left + elPosition.width / 2 - tipPosition.width / 2,
+              top: elPosition.bottom + this.offset,
             };
         }
       },
       handlerHover(event) {
-        if (this.visible)
-          return;
+        if (this.visible) return;
         clearTimeout(this._scheduleTimer);
         this._scheduleTimer = window.setTimeout(() => {
           this.visible = true;
@@ -8061,8 +8169,8 @@
       tooltipHidden() {
         this.visible = false;
         clearTimeout(this._scheduleTimer);
-      }
-    }
+      },
+    },
   };
 
   /* script */
@@ -8127,96 +8235,93 @@
       undefined
     );
 
-  var Tooltip = function() {
-    function Tooltip2(el, vnode, options) {
-      this.vnode = vnode;
-      this.props = __assign(__assign({el}, Tooltip2.defaultOptions), this.propsHandle(options));
-      var tipConstruct = Vue.extend(__vue_component__$1);
-      this.tip = new tipConstruct({propsData: this.props}).$mount();
-      this.refHandle();
-    }
-    Tooltip2.prototype.updateProps = function(options) {
-      Object.assign(this.tip, this.propsHandle(options));
-    };
-    Tooltip2.prototype.startWatch = function() {
-      var that = this;
-      var unwatch = this.tip.$watch("visible", function() {
-        appendChild();
-      });
-      function appendChild() {
-        document.body.appendChild(that.tip.$el);
-        unwatch();
+  var Tooltip = (function () {
+      function Tooltip(el, vnode, options) {
+          this.vnode = vnode;
+          this.props = __assign(__assign({ el: el }, Tooltip.defaultOptions), this.propsHandle(options));
+          var tipConstruct = Vue.extend(__vue_component__$1);
+          this.tip = new tipConstruct({ propsData: this.props }).$mount();
+          this.refHandle();
       }
-    };
-    Tooltip2.prototype.refHandle = function() {
-      if (this.ref) {
-        if (this.vnode.context.$refs[this.ref]) {
-          this.tip.$el.appendChild(this.vnode.context.$refs[this.ref]);
-        } else {
-          console.error("[Tooltip] no REF element [" + this.ref + "]");
-        }
-      }
-    };
-    Tooltip2.prototype.destroy = function() {
-      if (document.body.contains(this.tip.$el)) {
-        document.body.removeChild(this.tip.$el);
-      }
-    };
-    Tooltip2.prototype.propsHandle = function(options) {
-      if (typeof options === "string") {
-        return {content: options};
-      }
-      if (typeof options === "object") {
-        if (options.ref && !options.context) {
-          this.ref = options.ref;
-          delete options.ref;
-        }
-        return __assign({}, options);
-      }
-    };
-    Tooltip2.defaults = function(options) {
-      this.defaultOptions = options;
-    };
-    return Tooltip2;
-  }();
+      Tooltip.prototype.updateProps = function (options) {
+          Object.assign(this.tip, this.propsHandle(options));
+      };
+      Tooltip.prototype.startWatch = function () {
+          var that = this;
+          var unwatch = this.tip.$watch('visible', function () {
+              appendChild();
+          });
+          function appendChild() {
+              document.body.appendChild(that.tip.$el);
+              unwatch();
+          }
+      };
+      Tooltip.prototype.refHandle = function () {
+          if (this.ref) {
+              if (this.vnode.context.$refs[this.ref]) {
+                  this.tip.$el.appendChild(this.vnode.context.$refs[this.ref]);
+              }
+              else {
+                  console.error("[Tooltip] no REF element [" + this.ref + "]");
+              }
+          }
+      };
+      Tooltip.prototype.destroy = function () {
+          if (document.body.contains(this.tip.$el)) {
+              document.body.removeChild(this.tip.$el);
+          }
+      };
+      Tooltip.prototype.propsHandle = function (options) {
+          if (typeof options === 'string') {
+              return { content: options };
+          }
+          if (typeof options === 'object') {
+              if (options.ref && !options.context) {
+                  this.ref = options.ref;
+                  delete options.ref;
+              }
+              return __assign({}, options);
+          }
+      };
+      Tooltip.defaults = function (options) {
+          this.defaultOptions = options;
+      };
+      return Tooltip;
+  }());
 
   function buildDirective(defaultOptions) {
-    return {
-      bind: function(el, binding, vnode) {
-        if (defaultOptions) {
-          Tooltip.defaults(defaultOptions);
-        }
-      },
-      inserted: function(el, binding, vnode, oldVnode) {
-        el.tip = new Tooltip(el, vnode, binding.value);
-        el.tip.startWatch();
-      },
-      update: function(el, binding, vnode, oldVnode) {
-        el.tip.updateProps(binding.value);
-      },
-      unbind: function(el, binding, vnode, oldVnode) {
-        el.tip.destroy();
-      }
-    };
+      return {
+          bind: function (el, binding, vnode) {
+              if (defaultOptions) {
+                  Tooltip.defaults(defaultOptions);
+              }
+          },
+          inserted: function (el, binding, vnode, oldVnode) {
+              el.tip = new Tooltip(el, vnode, binding.value);
+              el.tip.startWatch();
+          },
+          update: function (el, binding, vnode, oldVnode) {
+              el.tip.updateProps(binding.value);
+          },
+          unbind: function (el, binding, vnode, oldVnode) {
+              el.tip.destroy();
+          },
+      };
   }
 
   var tip = {
-    install: function(Vue, options) {
-      if (options === void 0) {
-        options = {};
-      }
-      var name = options.directiveName || "tip";
-      console.log(options);
-      Vue.directive(name, buildDirective(options));
-      console.log("注册成功");
-    }
+      install: function (Vue, options) {
+          if (options === void 0) { options = {}; }
+          var name = options.directiveName || 'tip';
+          Vue.directive(name, buildDirective(options));
+      },
   };
 
   Vue.config.productionTip = false;
-  Vue.use(tip, {theme: "light", class: "test tip"});
+  Vue.use(tip, { theme: 'light', class: 'test tip' });
   Vue.config.devtools = true;
   new Vue({
-    render: (h) => h(__vue_component__)
-  }).$mount("#app");
+    render: (h) => h(__vue_component__),
+  }).$mount('#app');
 
 }());
