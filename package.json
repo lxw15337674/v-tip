@@ -1,6 +1,6 @@
 {
   "name": "v-directive-tooltip",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a tooltip directive  with vue2",
   "author": "bhwa233 <404174262@qq.com>",
   "public": true,
