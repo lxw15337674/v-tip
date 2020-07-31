@@ -4,7 +4,7 @@
   "description": "a tooltip directive  with vue2",
   "author": "bhwa233 <404174262@qq.com>",
   "public": true,
-  "main": "dist/v-tip.js",
+  "main": "dist/index.js",
   "keywords": [
     "vue",
     "tooltip"

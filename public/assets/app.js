@@ -8309,12 +8309,11 @@
       };
   }
 
-  var tip = {
-      install: function (Vue, options) {
-          if (options === void 0) { options = {}; }
-          var name = options.directiveName || 'tip';
-          Vue.directive(name, buildDirective(options));
-      },
+  const tip = {
+    install(Vue, options={}) {
+      const name = options.directiveName || 'tip';
+      Vue.directive(name, buildDirective(options));
+    },
   };
 
   Vue.config.productionTip = false;
