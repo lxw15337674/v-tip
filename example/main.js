@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import App from './App.vue';
-import tip from '@/index.js';
+import tip from '../';
 
 Vue.config.productionTip = false;
 Vue.use(tip, { theme: 'light', class: 'test tip' });
